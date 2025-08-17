@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.SysLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.SysLog">
+        <id column="logID" property="logid" />
+        <result column="userID" property="userid" />
+        <result column="Log_Content" property="logContent" />
+        <result column="IP_Address" property="ipAddress" />
+        <result column="OS" property="os" />
+        <result column="Browser" property="browser" />
+        <result column="CreateDate" property="createdate" />
+        <result column="Remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        logID, userID, Log_Content, IP_Address, OS, Browser, CreateDate, Remark
+    </sql>
+
+    <!--    获取当前最大的序号-->
+    <select id="getMaxLogId" resultType="java.lang.Integer">
+        SELECT MAX(logId) FROM sys_log
+    </select>
+
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.CommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.Comment">
+        <id column="reviewer_id" property="reviewerId" />
+        <result column="reviewed_id" property="reviewedId" />
+        <result column="response_ordinal" property="responseOrdinal" />
+        <result column="stars" property="stars" />
+        <result column="initial_comments" property="initialComments" />
+        <result column="modified_comments" property="modifiedComments" />
+        <result column="timestamp" property="timestamp" />
+        <result column="twice_comment" property="twiceComment" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        reviewer_id, reviewed_id, response_ordinal, stars, initial_comments, modified_comments, timestamp, twice_comment, create_time
+    </sql>
+
+    <!--    评论管理界面使用-->
+    <select id="listCommentPartVo" resultType="com.market.controller.vo.CommentPartVo">
+        SELECT
+            c.comment_id,
+            p1.user_name AS reviewer_name,
+            p2.user_name AS reviewed_name,
+            c.response_ordinal,
+            c.stars,
+            c.initial_comments,
+            c.modified_comments,
+            c.timestamp,
+            c.twice_comment,
+            c.create_time
+        FROM
+            Comment c
+                LEFT JOIN (
+                SELECT person_id, user_name FROM person
+            ) p1 ON c.reviewer_id = p1.person_id
+                LEFT JOIN (
+                SELECT person_id, user_name FROM person
+            ) p2 ON c.reviewed_id = p2.person_id;
+
+    </select>
+
+    <select id="selectIdByName1" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT c.reviewer_id
+        FROM Comment c
+        JOIN person p ON p.person_id = c.reviewer_id
+        WHERE p.user_name = #{name}
+    </select>
+
+    <select id="selectIdByName2" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT c.reviewed_id
+        FROM Comment c
+                 JOIN person p ON p.person_id = c.reviewed_id
+        WHERE p.user_name = #{name}
+    </select>
+</mapper>

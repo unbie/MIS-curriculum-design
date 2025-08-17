@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.NearSellMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.NearSell">
+        <id column="campus_id" property="campusId" />
+        <result column="campus_name" property="campusName" />
+        <result column="good_id1" property="goodId1" />
+        <result column="good_id2" property="goodId2" />
+        <result column="good_id3" property="goodId3" />
+        <result column="good_id4" property="goodId4" />
+        <result column="good_id5" property="goodId5" />
+        <result column="good_id6" property="goodId6" />
+        <result column="good_id7" property="goodId7" />
+        <result column="good_id8" property="goodId8" />
+        <result column="good_id9" property="goodId9" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        campus_id, campus_name, good_id1, good_id2, good_id3, good_id4, good_id5, good_id6, good_id7, good_id8, good_id9, create_time
+    </sql>
+
+    <select id="selectIdByName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT campus_id
+        FROM near_sell n
+        WHERE n.campus_name = #{campusName}
+    </select>
+
+</mapper>

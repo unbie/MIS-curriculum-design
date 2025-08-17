@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.PersonShoppingAddressMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.PersonShoppingAddress">
+        <id column="shopping_address_id" property="shoppingAddressId" />
+        <result column="person_id" property="personId" />
+        <result column="shipping_address" property="shippingAddress" />
+        <result column="shopping_name" property="shoppingName" />
+        <result column="shopping_phone" property="shoppingPhone" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        shopping_address_id, person_id, shipping_address, shopping_name, shopping_phone, create_time
+    </sql>
+
+    <select id="listOrderCustomerVo" resultType="com.market.controller.vo.OrderCustomerVO">
+        SELECT
+            psa.person_id AS customerId,
+            p.user_name AS customerName,
+            psa.shopping_name AS shippingPerson,
+            psa.shipping_address AS shippingAddress,
+            psa.shopping_phone AS shippingPhone
+        FROM
+            person_shopping_address psa
+                JOIN
+            person p ON psa.person_id = p.person_id;
+    </select>
+</mapper>

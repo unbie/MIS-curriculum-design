@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.GoodMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.Good">
+        <id column="good_id" property="goodId" />
+        <result column="good_name" property="goodName" />
+        <result column="category_id" property="categoryId" />
+        <result column="description" property="description" />
+        <result column="price" property="price" />
+        <result column="express_price" property="expressPrice" />
+        <result column="counts" property="counts" />
+        <result column="publisher_id" property="publisherId" />
+        <result column="is_sale" property="isSale" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        good_id, good_name, category_id, description, price, express_price, counts, publisher_id, is_sale, create_time
+    </sql>
+
+    <select id="listOrderGoodVo" resultType="com.market.controller.vo.OrderGoodVO">
+        SELECT
+          g.good_id AS goodId,
+          g.good_name AS goodName,
+          i.img_url AS goodImg,
+          g.description
+        FROM
+          good g
+        JOIN
+          img_and_good i ON g.good_id = i.good_id;
+    </select>
+
+</mapper>

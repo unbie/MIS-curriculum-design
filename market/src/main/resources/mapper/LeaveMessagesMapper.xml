@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.LeaveMessagesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.LeaveMessages">
+        <id column="comment_id" property="commentId" />
+        <result column="reviewer_id" property="reviewerId" />
+        <result column="parent_id" property="parentId" />
+        <result column="content" property="content" />
+        <result column="good_id" property="goodId" />
+        <result column="create_time" property="createTime" />
+        <result column="userName" property="userName" />
+        <result column="target" property="target" />
+        <result column="good_name" property="goodName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comment_id, reviewer_id, parent_id, content, good_id, create_time, userName, target,good_name
+    </sql>
+
+    <select id="findByGoodId" resultType="com.market.entity.LeaveMessages" parameterType="java.lang.Integer">
+        select *
+        from leave_messages
+        where good_id = #{goodId}
+    </select>
+
+
+</mapper>

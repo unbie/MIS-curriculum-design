@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.market.entity.Order">
+        <id column="order_id" property="orderId" />
+        <result column="good_id" property="goodId" />
+        <result column="address_id" property="addressId" />
+        <result column="seller_id" property="sellerId" />
+        <result column="customer_id" property="customerId" />
+        <result column="total_price" property="totalPrice" />
+        <result column="order_status" property="orderStatus" />
+        <result column="pay_time" property="payTime" />
+        <result column="pay_ways" property="payWays" />
+        <result column="pay_status" property="payStatus" />
+        <result column="count" property="count" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id, good_id, address_id,seller_id, customer_id, total_price, order_status, pay_time, pay_ways, pay_status, count, create_time
+    </sql>
+
+    <!--    查找除了address_id外的所有数据-->
+    <select id="listOrderVo" resultType="com.market.controller.vo.OrderVo">
+        SELECT
+            order_id,
+            order_no,
+            good_id,
+            seller_id,
+            customer_id,
+            address_id,
+            total_price,
+            order_status,
+            pay_time,
+            pay_ways,
+            pay_status,
+            count,
+            create_time
+        FROM
+            `order`;
+    </select>
+
+    <!--    根据orderId删除对应的订单表数据-->
+    <delete id="deleteByOrderId" parameterType="java.lang.Integer">
+        DELETE FROM `order` WHERE order_id = #{orderId}
+    </delete>
+
+    <!--    根据orderId将对应的order_status的值变为-1-->
+    <update id="updateByOrderId" parameterType="java.lang.Integer">
+    UPDATE `order` SET order_status = -1 WHERE order_id = #{orderId}
+    </update>
+
+</mapper>
